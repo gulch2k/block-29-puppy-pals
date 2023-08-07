@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -33,3 +34,23 @@ function App() {
 }
 
 export default App
+=======
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react'
+import './App.css'
+import SinglePlayer from "./components/SinglePlayer"
+import AllPlayers from "./components/AllPlayers"
+
+function App() {
+  return (
+    <BrowserRouter>
+    <Routes>
+        <Route path='/' element={<AllPlayers/>} />
+        <Route path='/players/:id' element={<SinglePlayer />} />
+    </Routes>
+  </BrowserRouter>
+  );
+}
+
+export default App;
+>>>>>>> 1ae12d193662856024dc8e54668943e6d0cbd8de
