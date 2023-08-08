@@ -6,31 +6,30 @@ const [players, setPlayers] = useState([]);
 
   useEffect(() => {
     const getPlayers = async () => {
+      try {
       const playersFromApi = await fetchPlayers()
-      console.log(playersFromApi);
-      setPlayers(playersFromApi);
+      setPlayers(playersFromApi.data.players || []);
+    } catch (error) {
+      console.error('Error fetching players:', error);
     }
+  };
 
     getPlayers();
   }, []);
 
   
   return (
-    <div>
-      {Array.isArray(players) && players.length > 0 ? (
-        players.map((player) => {
-          return (
-            <div key={player.id}>
-              <h4>{player.name}</h4>
-              {/* Add here whatever you want to display */}
-            </div>
-          );
-        })
-      ) : (
-        <p>No players available</p>
-      )}
+    <div className="player-card-container">
+      {players.map((player) => (
+        <div key={player.id} className="player-card">
+          <h4>{player.name}</h4>
+          <p>Breed: {player.breed}</p>
+          <p>Status: {player.status}</p>
+          <img src={player.imageUrl} alt={player.name} style={{ width: '200px' }} />
+          {/* Add any other player information you want to display */}
+        </div>
+      ))}
     </div>
   );
 }
-
 export default AllPlayers;
