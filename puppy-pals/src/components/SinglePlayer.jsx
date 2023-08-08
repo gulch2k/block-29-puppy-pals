@@ -1,12 +1,28 @@
-import { useNavigate } from 'react-router-dom'; 
-import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { fetchPlayer } from './API';
+import { useParams } from "react-router-dom";
 
 export default function SinglePlayer() {
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const [player, setPlayer] = useState(null);
+  const navigate = useNavigate();
 
-    return (
-        <button onClick={() => navigate('/SinglePlayer')}>
-          Go to Single Player
-        </button>
-      );
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchPlayer(id);
+        setPlayer(data);
+      } catch (error) {
+        console.error(`Error fetching player with ID ${id}:`, error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  return (
+    <button onClick={() => navigate("/SinglePlayer")}>
+      View the single player
+    </button>
+  );
+}
