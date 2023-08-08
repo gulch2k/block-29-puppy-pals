@@ -11,13 +11,3 @@ export const fetchPlayers = async () => {
   }
 };
 
-export const fetchPlayer = async (id) => {
-  try {
-    const response = await fetch(`${BASE_URL}/players/${id}`);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(`Error fetching player with ID ${id}:`, error);
-    throw error;
-  }
-};

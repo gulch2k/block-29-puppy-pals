@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { fetchPlayer } from './API';
+import { fetchPlayers } from './API';
 import { useParams } from "react-router-dom";
 
 export default function SinglePlayer() {
@@ -10,7 +10,7 @@ export default function SinglePlayer() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchPlayer(id);
+        const data = await fetchPlayers(id);
         setPlayer(data);
       } catch (error) {
         console.error(`Error fetching player with ID ${id}:`, error);
