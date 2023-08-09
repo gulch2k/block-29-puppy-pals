@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from 'react'
 import './App.css'
 import SinglePlayer from "./components/SinglePlayer"
 import AllPlayers from "./components/AllPlayers"
@@ -9,7 +8,7 @@ function App() {
     <BrowserRouter>
     <Routes>
         <Route path='/' element={<AllPlayers/>} />
-        <Route path='/players/:id' element={<SinglePlayer />} />
+        <Route path='/players/:playerId' element={<SinglePlayer />} />
     </Routes>
   </BrowserRouter>
   );

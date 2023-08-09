@@ -48,14 +48,14 @@
 
 .player-card {
   flex: 0 0 200px;
-  border: 10px solid #7300ff;
+  border: 10px solid #eae3ca;
   padding: 10px;
   margin: 10px;
-  background-color: grey;
+  background-color: #d3d3d3;
 }
 
 .player-card p {
-  color:black
+  color:#4682b4;
 }
 
 .player-card h4 {

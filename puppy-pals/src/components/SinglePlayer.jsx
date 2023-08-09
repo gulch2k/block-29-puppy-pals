@@ -1,28 +1,39 @@
-import { useNavigate } from "react-router-dom";
-import { fetchPlayers } from './API';
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { fetchPlayer } from "./API";
 
 export default function SinglePlayer() {
   const { id } = useParams();
   const [player, setPlayer] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchSinglePlayer = async () => {
       try {
-        const data = await fetchPlayers(id);
-        setPlayer(data);
+        const playerData = await fetchPlayer(id);
+        setPlayer(playerData);
       } catch (error) {
-        console.error(`Error fetching player with ID ${id}:`, error);
+        console.error('Error fetching player:', error);
       }
     };
 
-    fetchData();
-  }, [id]);
+    fetchSinglePlayer();
+  }, [playerId]);
+
+  if (!player) {
+    return <div>Loading...</div>;
+  }
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate("/");
+  };
 
   return (
-    <button onClick={() => navigate("/SinglePlayer")}>
-      View the single player
-    </button>
+    <div>
+      <div>
+        <h2>Player Details</h2>
+        <p>Player ID: {playerId}</p>
+      </div>
+      <button onClick={handleButtonClick}>Go Home</button>
+    </div>
   );
 }
