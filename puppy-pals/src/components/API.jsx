@@ -22,12 +22,12 @@ export const fetchPlayer = async (id) => {
   }
 };
 
-export const handleDelete = async () => {
+export const handleDelete = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/players/${id}`, {
       method: "DELETE"
     });
-    
+
     if (response.ok) {
       navigate("/");
     } else {
