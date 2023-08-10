@@ -1,4 +1,8 @@
+import {useNavigate} from "react-router-dom";
 const BASE_URL = 'https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-pt-web-pt-d';
+
+
+
 
 export const fetchPlayers = async () => {
   try {
@@ -27,7 +31,6 @@ export const handleDelete = async (id) => {
     const response = await fetch(`${BASE_URL}/players/${id}`, {
       method: "DELETE"
     });
-
     if (response.ok) {
       navigate("/");
     } else {
@@ -38,5 +41,25 @@ export const handleDelete = async (id) => {
   }
 };
 
+export const createPlayer = async (player) => {
+  try {
+    const response = await fetch(`${BASE_URL}/players`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(player),
+    });
 
+    if (!response.ok) {
+      throw new Error('Failed to create player');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error creating player:', error);
+    throw error;
+  }
+};
 

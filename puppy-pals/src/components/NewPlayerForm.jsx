@@ -1,30 +1,32 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createPlayer } from "./API";
 
 const NewPlayerForm = () => {
-    const [breed, setBreed] = useState("");
-    const [name, setName] = useState("");
-    const [status, setStatus] = useState("");
+  const navigate = useNavigate();
+  const [player, setPlayer] = useState({
+    name: "",
+    breed: "",
+    status: "",
+    imageUrl: ""
+  });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setPlayer({ ...player, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Send a POST request to the API to create a new player
-    fetch('https://fsa-puppy-bowl.herokuapp.com/api/players', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('New player created:', data);
-        // Reset the form fields
-        setName('');
-        setBreed('');
-        setStatus('');
-        setImage('')
-      });
+    try {
+      const newPlayer = await createPlayer(player);
+      console.log("New player created:", newPlayer);
+
+      // Redirect to the home page after successful creation
+      navigate("/");
+    } catch (error) {
+      console.error("Error creating player:", error);
+    }
   };
 
   return (
@@ -33,15 +35,39 @@ const NewPlayerForm = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            type="text"
+            name="name"
+            value={player.name}
+            onChange={handleChange}
+          />
         </label>
         <label>
           Breed:
-          <input type="text" value={breed} onChange={(e) => setBreed(e.target.value)} />
+          <input
+            type="text"
+            name="breed"
+            value={player.breed}
+            onChange={handleChange}
+          />
         </label>
         <label>
           Status:
-          <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} />
+          <input
+            type="text"
+            name="status"
+            value={player.status}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Image URL:
+          <input
+            type="text"
+            name="imageUrl"
+            value={player.imageUrl}
+            onChange={handleChange}
+          />
         </label>
         <button type="submit">Create Player</button>
       </form>
