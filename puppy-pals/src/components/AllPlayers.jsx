@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { fetchPlayers } from './API';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function AllPlayers() {
 const [players, setPlayers] = useState([]);
+const navigate = useNavigate();
 
   useEffect(() => {
     const getPlayers = async () => {
@@ -19,24 +20,23 @@ const [players, setPlayers] = useState([]);
     getPlayers();
   }, []);
 
-  const navigate = useNavigate();
-  const handleButtonClick = () => {
-    navigate("/players/${player.ID}");
-  }
-
   return (
     <div className="player-card-container">
-      {players.map((player) => (
-        <div key={player.id} className="player-card">
-          <h4>{player.name}</h4>
-          <p>Breed: {player.breed}</p>
-          <p>Status: {player.status}</p>
-          <Link to={`/players/${player.id}`}>See Details</Link>
-          <img src={player.imageUrl} alt={player.name} style={{ width: '200px' }} />
-          <button onClick = {handleButtonClick}>See Details2</button>
-        </div>
-      ))}
-      
+      {players.map((player) => {
+        const handleButtonClick = () => {
+          navigate(`/players/${player.id}`);
+        }
+
+        return (
+          <div key={player.id} className="player-card">
+            <h4>{player.name}</h4>
+            <p>Breed: {player.breed}</p>
+            <p>Status: {player.status}</p>
+            <img src={player.imageUrl} alt={player.name} style={{ width: '200px' }} />
+            <button onClick={()=> handleButtonClick(player.id)}>See Details</button>
+          </div>
+        )
+      })}
     </div>
   );
 }
