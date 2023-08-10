@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchPlayer } from "./API";
+import { fetchPlayer, handleDelete } from "./API";
 
 export default function SinglePlayer() {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function SinglePlayer() {
     const fetchSinglePlayer = async () => {
       try {
         const playerData = await fetchPlayer(id);
-        setPlayer(playerData);
+        setPlayer(playerData.data.player || []);
       } catch (error) {
         console.error("Error fetching player:", error);
       }
@@ -23,24 +23,20 @@ export default function SinglePlayer() {
   if (!player) {
     return <div>Loading...</div>;
   }
-
-  <div>
-    {player.map((player) => {
-      return (
-        <div>
-          <h2>Player Details</h2>
-          <p>Player ID: {player.id}</p>
-          <p>Name: {player.name}</p>
-          <p>Breed: {player.breed}</p>
-          <p>Status: {player.status}</p>
-          <button onClick={() => navigate("/")}>Go Home</button>
-          <button className="delete-btn" onClick={() => handleClick(player.id)}>
-            Don't Click me!
-          </button>
-        </div>
-      );
-    })}
-  </div>;
+  return (
+    <div key={player.id} className="player-card">
+      <h2>Player Details</h2>
+      <img src={player.imageUrl} alt={player.name} style={{ width: "200px" }} />
+      <p>Name: {player.name}</p>
+      <p>Player ID: {player.id}</p>
+      <p>Breed: {player.breed}</p>
+      <p>Status: {player.status}</p>
+      <button onClick={() => navigate("/")}>Go Home</button>
+      <button className="delete-btn" onClick={handleDelete}>
+        Don't Click me!
+      </button>
+    </div>
+  );
 }
 
 //

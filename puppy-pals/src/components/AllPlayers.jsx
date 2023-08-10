@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchPlayers } from './API';
+import { handleDelete } from './API';
 import { useNavigate } from 'react-router-dom';
 
 function AllPlayers() {
