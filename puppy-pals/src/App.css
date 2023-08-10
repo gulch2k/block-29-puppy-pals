@@ -61,3 +61,41 @@
 .player-card h4 {
   color: black;
 }
+
+.form-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.player-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  margin-bottom: 10px;
+  color: rgb(0, 0, 0);
+
+}
+
+
+.form-input {
+  padding: 5px;
+  border: 2px solid #000000;
+  margin-right: 20px;
+  background-color: grey;
+
+}
+
+.form-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}

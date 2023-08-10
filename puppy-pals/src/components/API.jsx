@@ -26,7 +26,7 @@ export const fetchPlayer = async (id) => {
   }
 };
 
-export const handleDelete = async (id) => {
+export const handleDelete = async (id,navigate) => {
   try {
     const response = await fetch(`${BASE_URL}/players/${id}`, {
       method: "DELETE"

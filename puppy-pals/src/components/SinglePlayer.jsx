@@ -32,7 +32,7 @@ export default function SinglePlayer() {
       <p>Breed: {player.breed}</p>
       <p>Status: {player.status}</p>
       <button onClick={() => navigate("/")}>Go Home</button>
-      <button className="delete-btn" onClick={() => handleDelete(player.id)}>
+      <button className="delete-btn" onClick={() => handleDelete(player.id, navigate)}>
         Dont click me!
       </button>
     </div>
